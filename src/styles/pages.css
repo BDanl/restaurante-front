@@ -1,0 +1,173 @@
+.page-container {
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.error {
+  color: var(--danger);
+  background-color: rgba(214, 48, 49, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+/* Formularios */
+form {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  max-width: 500px;
+  margin: 2rem auto;
+}
+
+form div {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--dark);
+}
+
+input, select {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--gray);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
+}
+
+button {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: white;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 1rem;
+}
+
+button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(108, 92, 231, 0.3);
+}
+
+/* Cards*/
+.feature-card, .order-card, .bill-card, .menu-item, .table-card {
+  background: white;
+  border: none;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover, .order-card:hover, .bill-card:hover, .menu-item:hover, .table-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Grids y layouts */
+.admin-features, .orders-list, .bills-list, .client-content, .tables-grid {
+  display: grid;
+  gap: 2rem;
+  margin-top: 3rem;
+  width: 100%;
+}
+
+.admin-features {
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.client-content {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 992px) {
+  .client-content {
+    grid-template-columns: 2fr 1fr;
+    align-items: start;
+  }
+}
+
+/* Estilos específicos para mesas */
+.table-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.table-card.disponible {
+  background: linear-gradient(135deg, #e3f9e5, #c8f7cb);
+}
+
+.table-card.ocupado {
+  background: linear-gradient(135deg, #ffecef, #ffdfe3);
+}
+
+.table-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 8px;
+  height: 100%;
+}
+
+.table-card.disponible::after {
+  background-color: var(--success);
+}
+
+.table-card.ocupado::after {
+  background-color: var(--danger);
+}
+
+.table-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.action-button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.action-button {
+  background-color: var(--secondary);
+  color: white;
+}
+
+.action-button.danger {
+  background-color: var(--danger);
+}
+
+.action-button:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+

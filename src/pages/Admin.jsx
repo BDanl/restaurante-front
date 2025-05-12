@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import '../styles/cards.css';
 import '../styles/buttons.css';
+import '../styles/admin.css';
+import '../styles/modals.css';
 
 const Admin = () => {
   // Estados para las diferentes secciones
@@ -9,11 +13,6 @@ const Admin = () => {
     { id: 1, table: 5, items: ['Pasta Alfredo', 'Ensalada'], status: 'preparando', payment: 'pendiente', time: '12:45 PM' },
     { id: 2, table: 3, items: ['Filete Mignon'], status: 'listo', payment: 'pagado', time: '1:15 PM' },
     { id: 3, table: 8, items: ['Sopa', 'Sandwich'], status: 'pendiente', payment: 'pendiente', time: '1:30 PM' }
-  ]);
-
-  const [users, setUsers] = useState([
-    { id: 1, name: 'Ana López', email: 'ana@example.com', role: 'admin', lastLogin: 'Hoy 10:30 AM' },
-    { id: 2, name: 'Carlos Méndez', email: 'carlos@example.com', role: 'mesero', lastLogin: 'Ayer' }
   ]);
 
   const [menuItems, setMenuItems] = useState([
@@ -26,6 +25,32 @@ const Admin = () => {
     { id: 2, ingredient: 'Queso Parmesano', status: 'bajo', needed: '2 kg', time: 'Ayer' }
   ]);
 
+  
+
+  const { users, updateUserRole, deleteUser } = useAuth();
+  const navigate = useNavigate();
+
+  // Estado para confirmación de eliminación
+  const [userToDelete, setUserToDelete] = useState(null);
+
+  // Función para confirmar eliminación
+  const confirmDelete = (userId) => {
+    setUserToDelete(userId);
+  };
+
+  // Función para cancelar eliminación
+  const cancelDelete = () => {
+    setUserToDelete(null);
+  };
+
+  // Función para ejecutar eliminación
+  const executeDelete = () => {
+    if (userToDelete) {
+      deleteUser(userToDelete);
+      setUserToDelete(null);
+    }
+  };
+
   // Funciones de gestión
   const updateOrderStatus = (id, newStatus) => {
     setOrders(orders.map(order => 
@@ -33,16 +58,24 @@ const Admin = () => {
     ));
   };
 
-  const updateUserRole = (id, newRole) => {
-    setUsers(users.map(user => 
-      user.id === id ? { ...user, role: newRole } : user
-    ));
-  };
-
   const toggleMenuItemStock = (id) => {
     setMenuItems(menuItems.map(item => 
       item.id === id ? { ...item, stock: !item.stock } : item
     ));
+  };
+
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
+
+   // Función para abrir el modal con los detalles del usuario
+  const openUserDetails = (user) => {
+    setSelectedUser(user);
+    setShowPassword(false); // Por defecto ocultamos la contraseña
+  };
+
+  // Función para cerrar el modal
+  const closeUserDetails = () => {
+    setSelectedUser(null);
   };
 
   return (
@@ -185,49 +218,187 @@ const Admin = () => {
 
       {/* Sección de Gestión de Usuarios */}
       {activeSection === 'users' && (
-        <div className="card">
-          <div className="card-header">
-            <h2 className="card-title">Gestión de Usuarios</h2>
-            <p style={{ color: '#666' }}>{users.length} usuarios registrados</p>
-          </div>
-          <div className="card-body">
-            <div className="cards-grid" style={{ gridTemplateColumns: '1fr' }}>
-              {users.map(user => (
-                <div key={user.id} className="card-item">
-                  <div style={{ flex: 1 }}>
-                    <h3 style={{ marginBottom: '0.25rem' }}>{user.name}</h3>
-                    <p style={{ color: '#666', marginBottom: '0.25rem' }}>{user.email}</p>
-                    <p style={{ fontSize: '0.9rem' }}>
-                      Último acceso: <span style={{ color: '#888' }}>{user.lastLogin}</span>
-                    </p>
+        <>
+          <div className="card">
+            <div className="card-header">
+              <h2 className="card-title">Gestión de Usuarios</h2>
+              <p style={{ color: '#666' }}>{users.length} usuarios registrados</p>
+            </div>
+            <div className="card-body">
+              <div className="cards-grid" style={{ gridTemplateColumns: '1fr' }}>
+                {users.map(user => (
+                  <div key={user.id} className="card-item">
+                    <div style={{ flex: 1 }}>
+                      <h3 style={{ marginBottom: '0.25rem' }}>{user.name}</h3>
+                      <p style={{ color: '#666', marginBottom: '0.25rem' }}>{user.email}</p>
+                      <p style={{ fontSize: '0.9rem' }}>
+                        Último acceso: <span style={{ color: '#888' }}>{user.lastLogin || 'Nunca'}</span>
+                      </p>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      <select
+                        value={user.role}
+                        onChange={(e) => updateUserRole(user.id, e.target.value)}
+                        className="role-select"
+                      >
+                        <option value="admin">Administrador</option>
+                        <option value="chef">Cocinero</option>
+                        <option value="cashier">Cajero</option>
+                        <option value="waiter">Mesero</option>
+                        <option value="client">Cliente</option>
+                      </select>
+                      
+                      <button 
+                        onClick={() => openUserDetails(user)}
+                        className="action-button"
+                        style={{ padding: '0.5rem', minWidth: '40px' }}
+                      >
+                        👁️
+                      </button>
+                      
+                      <button 
+                        onClick={() => confirmDelete(user.id)}
+                        className="action-button danger" 
+                        style={{ padding: '0.5rem' }}
+                      >
+                        ×
+                      </button>
+                    </div>
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    <select
-                      value={user.role}
-                      onChange={(e) => updateUserRole(user.id, e.target.value)}
-                      style={{
-                        padding: '0.5rem',
-                        borderRadius: '6px',
-                        border: '1px solid rgba(0,0,0,0.1)'
-                      }}
+                ))}
+              </div>
+            </div>
+          </div>
+
+           {/* Modal de Detalles de Usuario */}
+          {selectedUser && (
+            <div className="modal-overlay">
+              <div className="modal-card">
+                <div className="modal-header">
+                  <h2>Detalles del Usuario</h2>
+                  <button onClick={closeUserDetails} className="modal-close-btn">
+                    &times;
+                  </button>
+                </div>
+                <div className="modal-body">
+                  <div className="user-detail-row">
+                    <span className="detail-label">Nombre:</span>
+                    <span className="detail-value">{selectedUser.name}</span>
+                  </div>
+                  <div className="user-detail-row">
+                    <span className="detail-label">Email:</span>
+                    <span className="detail-value">{selectedUser.email}</span>
+                  </div>
+                  <div className="user-detail-row">
+                    <span className="detail-label">Nombre de Usuario:</span>
+                    <span className="detail-value">{selectedUser.username || 'No especificado'}</span>
+                  </div>
+                  <div className="user-detail-row">
+                    <span className="detail-label">Rol:</span>
+                    <span className="detail-value" style={{ 
+                      color: selectedUser.role === 'admin' ? 'var(--primary)' : 
+                            selectedUser.role === 'client' ? 'var(--success)' : 'var(--dark)'
+                    }}>
+                      {selectedUser.role}
+                    </span>
+                  </div>
+                  <div className="user-detail-row">
+                    <span className="detail-label">Contraseña:</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      <span className="detail-value">
+                        {showPassword ? selectedUser.password : '••••••••'}
+                      </span>
+                      <button 
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="action-button secondary"
+                        style={{ padding: '0.25rem 0.5rem' }}
+                      >
+                        {showPassword ? 'Ocultar' : 'Mostrar'}
+                      </button>
+                    </div>
+                  </div>
+                  <div className="user-detail-row">
+                    <span className="detail-label">Fecha de Registro:</span>
+                    <span className="detail-value">{selectedUser.registrationDate || 'No disponible'}</span>
+                  </div>
+                </div>
+                <div className="modal-footer">
+                  <button 
+                    onClick={closeUserDetails}
+                    className="action-button"
+                  >
+                    Cerrar
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Tarjeta para agregar nuevo usuario */}
+          <div 
+            className="card" 
+            style={{ 
+              marginTop: '1.5rem',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease'
+            }}
+            onClick={() => navigate('/register')}
+            onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 8px 25px rgba(108, 92, 231, 0.2)'}
+            onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 6px 20px rgba(0, 0, 0, 0.08)'}
+          >
+            <div className="card-body" style={{ textAlign: 'center', padding: '2rem' }}>
+              <h3 style={{ color: 'var(--primary)', marginBottom: '0.5rem' }}>
+                <span style={{ marginRight: '0.5rem' }}>+</span> Agregar Nuevo Usuario
+              </h3>
+              <p style={{ color: '#666' }}>Redirigir al formulario de registro</p>
+            </div>
+          </div>
+
+          {/* Modal de confirmación para eliminar usuario */}
+          {userToDelete && (
+            <div style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: 'rgba(0,0,0,0.5)',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              zIndex: 1000
+            }}>
+              <div className="card" style={{ maxWidth: '500px', width: '90%' }}>
+                <div className="card-header">
+                  <h2 className="card-title">Confirmar Eliminación</h2>
+                </div>
+                <div className="card-body">
+                  <p>¿Estás seguro que deseas eliminar este usuario? Esta acción no se puede deshacer.</p>
+                  <div style={{ 
+                    display: 'flex', 
+                    justifyContent: 'flex-end',
+                    gap: '1rem',
+                    marginTop: '1.5rem'
+                  }}>
+                    <button 
+                      onClick={cancelDelete}
+                      className="action-button secondary"
                     >
-                      <option value="admin">Administrador</option>
-                      <option value="chef">Cocinero</option>
-                      <option value="cashier">Cajero</option>
-                      <option value="waiter">Mesero</option>
-                      <option value="client">Cliente</option>
-                    </select>
-                    <button className="action-button danger" style={{ padding: '0.5rem' }}>
-                      ×
+                      Cancelar
+                    </button>
+                    <button 
+                      onClick={executeDelete}
+                      className="action-button danger"
+                    >
+                      Eliminar Usuario
                     </button>
                   </div>
                 </div>
-              ))}
+              </div>
             </div>
-          </div>
-        </div>
+          )}
+        </>
       )}
-
       {/* Sección de Gestión del Menú */}
       {activeSection === 'menu' && (
         <div className="card">

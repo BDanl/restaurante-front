@@ -1,0 +1,42 @@
+/* Estilos para la tarjeta de agregar usuario */
+.add-user-card {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.add-user-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(108, 92, 231, 0.15);
+}
+
+.add-user-card h3 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+}
+
+/* Modal de confirmación */
+.confirmation-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.confirmation-card {
+  max-width: 500px;
+  width: 90%;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}

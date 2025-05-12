@@ -14,7 +14,8 @@ const Waiter = () => {
         ? { 
             ...table, 
             status: 'ocupado', 
-            order: { items: [], total: 0 } // Inicializamos el pedido vacío
+            order: { items: [], total: 0 } 
+            // Inicializamos el pedido vacío
           } 
         : table
     ));
@@ -66,7 +67,7 @@ const Waiter = () => {
                 )}
                 
                 {table.order.items && table.order.items.length > 0 && (
-                  <p>Total: ${table.order.total.toFixed(2)}</p>
+                  <p>Total: ${table.order.total.toFixed(3)}</p>
                 )}
                 
                 <div className="table-actions">

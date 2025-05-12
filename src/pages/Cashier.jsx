@@ -163,7 +163,7 @@ const Cashier = () => {
                     >
                       <small style={{ color: "#888" }}>{bill.time}</small>
                       <strong style={{ fontSize: "1.1rem" }}>
-                        ${bill.amount.toFixed(2)}
+                        ${bill.amount.toFixed(3)}
                       </strong>
                     </div>
                     

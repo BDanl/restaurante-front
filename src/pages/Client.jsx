@@ -38,7 +38,7 @@ const Client = () => {
                   <div>
                     <h4 style={{ marginBottom: '0.25rem' }}>{item.name}</h4>
                     <p style={{ color: '#666', fontSize: '0.9rem' }}>
-                      {item.category} • ${item.price.toFixed(2)}
+                      {item.category} • ${item.price.toFixed(3)}
                     </p>
                   </div>
                   <button 

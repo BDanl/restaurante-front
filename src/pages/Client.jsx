@@ -68,7 +68,7 @@ const Client = () => {
                   <div key={item.id} className="card-item">
                     <span>{item.name}</span>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                      <span>${item.price.toFixed(2)}</span>
+                      <span>${item.price.toFixed(3)}</span>
                       <button 
                         onClick={() => removeFromCart(item.id)}
                         className="action-button danger"
@@ -88,7 +88,7 @@ const Client = () => {
                   alignItems: 'center'
                 }}>
                   <h4>Total:</h4>
-                  <h3>${total.toFixed(2)}</h3>
+                  <h3>${total.toFixed(3)}</h3>
                 </div>
                 <button 
                   className="action-button success"

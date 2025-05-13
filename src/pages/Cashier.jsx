@@ -236,7 +236,7 @@ const Cashier = () => {
                 {bills
                   .filter((bill) => bill.status === "pagado")
                   .reduce((sum, bill) => sum + bill.amount, 0)
-                  .toFixed(2)}
+                  .toFixed(3)}
               </h3>
             </div>
             <div style={{ textAlign: "center" }}>
@@ -274,7 +274,7 @@ const Cashier = () => {
               <strong>Hora:</strong> {selectedBill.time}
             </p>
             <p>
-              <strong>Monto:</strong> ${selectedBill.amount.toFixed(2)}
+              <strong>Monto:</strong> ${selectedBill.amount.toFixed(3)}
             </p>
             <p>
               <strong>Ítems:</strong>

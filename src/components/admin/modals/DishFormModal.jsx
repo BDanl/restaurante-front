@@ -1,72 +1,76 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const DishFormModal = ({ dish, onSave, onCancel }) => {
-  const [newDish, setNewDish] = useState(
-    dish
-      ? {
-          name: dish.name,
-          ingredients: dish.ingredients.join(", "),
-          description: dish.description,
-          price: dish.price.toString(),
-          category: dish.category,
-          available: dish.available,
-        }
-      : {
-          name: "",
-          ingredients: "",
-          description: "",
-          price: "",
-          category: "Plato principal",
-          available: true,
-        }
-  );
+  // Estado del formulario - cambiamos de newDish a formData para mayor claridad
+  const [formData, setFormData] = useState({
+    name: "",
+    ingredients: "",
+    description: "",
+    price: "",
+    category: "Plato principal",
+    available: true,
+  });
 
+  // Efecto para cargar datos cuando se edita un plato
+  useEffect(() => {
+    if (dish) {
+      setFormData({
+        name: dish.name,
+        ingredients: dish.ingredients.join(", "),
+        description: dish.description,
+        price: dish.price.toString(),
+        category: dish.category,
+        available: dish.available,
+      });
+    }
+  }, [dish]);
+
+  // Manejador de cambios en los inputs
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setNewDish((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData({
+      ...formData,
+      [name]: value
+    });
   };
 
+  // Manejador de envío del formulario
   const handleSubmit = (e) => {
     e.preventDefault();
-    const ingredientsArray = newDish.ingredients
+    
+    // Convertir ingredientes de string a array
+    const ingredientsArray = formData.ingredients
       .split(",")
-      .map((ing) => ing.trim())
-      .filter((ing) => ing !== "");
+      .map(ing => ing.trim())
+      .filter(ing => ing !== "");
 
-    const dishData = {
-      id: dish?.id || Date.now(),
-      name: newDish.name,
+    // Crear objeto plato para guardar
+    const dishToSave = {
+      name: formData.name,
       ingredients: ingredientsArray,
-      description: newDish.description,
-      price: parseFloat(newDish.price),
-      category: newDish.category,
-      available: newDish.available,
+      description: formData.description,
+      price: parseFloat(formData.price),
+      category: formData.category,
+      available: formData.available,
     };
 
-    onSave(dishData);
+    // Llamar a la función onSave con los datos del plato
+    onSave(dishToSave);
   };
 
   return (
-    <div
-      className="card-body"
-      style={{
-        borderBottom: "1px solid rgba(0,0,0,0.1)",
-        padding: "1.5rem",
-      }}
-    >
+    <div className="card-body" style={{ borderBottom: '1px solid rgba(0,0,0,0.1)', padding: '1.5rem' }}>
       <form onSubmit={handleSubmit}>
-        <h3 style={{ marginBottom: "1.5rem", color: "var(--primary)" }}>
-          {dish ? "Editar Plato" : "Agregar Nuevo Plato"}
+        <h3 style={{ marginBottom: '1.5rem', color: 'var(--primary)' }}>
+          {dish ? 'Editar Plato' : 'Agregar Nuevo Plato'}
         </h3>
+        
         <div className="form-group">
           <label>Nombre del Plato</label>
           <input
             type="text"
             name="name"
-            value={newDish.name}
+            value={formData.name}
             onChange={handleInputChange}
             placeholder="Ej: Pasta Alfredo"
             required
@@ -78,7 +82,7 @@ const DishFormModal = ({ dish, onSave, onCancel }) => {
           <input
             type="text"
             name="ingredients"
-            value={newDish.ingredients}
+            value={formData.ingredients}
             onChange={handleInputChange}
             placeholder="Ej: Pasta, Crema, Queso Parmesano"
             required
@@ -89,7 +93,7 @@ const DishFormModal = ({ dish, onSave, onCancel }) => {
           <label>Descripción</label>
           <textarea
             name="description"
-            value={newDish.description}
+            value={formData.description}
             onChange={handleInputChange}
             placeholder="Descripción detallada del plato"
             rows="3"
@@ -97,17 +101,17 @@ const DishFormModal = ({ dish, onSave, onCancel }) => {
           />
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
           <div className="form-group">
             <label>Precio ($)</label>
             <input
               type="number"
               name="price"
-              value={newDish.price}
+              value={formData.price}
               onChange={handleInputChange}
               placeholder="Ej: 12.999"
               min="0"
-              step="0.01"
+              step="0.001"
               required
             />
           </div>
@@ -116,7 +120,7 @@ const DishFormModal = ({ dish, onSave, onCancel }) => {
             <label>Categoría</label>
             <select
               name="category"
-              value={newDish.category}
+              value={formData.category}
               onChange={handleInputChange}
             >
               <option value="Plato principal">Plato principal</option>
@@ -128,29 +132,23 @@ const DishFormModal = ({ dish, onSave, onCancel }) => {
           </div>
         </div>
 
-        <div
-          className="form-group"
-          style={{ display: "flex", alignItems: "center", gap: "1rem" }}
-        >
+        <div className="form-group" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
           <input
             type="checkbox"
             id="available"
             name="available"
-            checked={newDish.available}
-            onChange={(e) =>
-              setNewDish({ ...newDish, available: e.target.checked })
-            }
+            checked={formData.available}
+            onChange={(e) => setFormData({ ...formData, available: e.target.checked })}
           />
           <label htmlFor="available" style={{ margin: 0 }}>
             Disponible
           </label>
         </div>
 
-        <div style={{ display: "flex", gap: "1rem", marginTop: "1.5rem" }}>
+        <div style={{ display: 'flex', gap: '1rem', marginTop: '1.5rem' }}>
           <button type="submit" className="action-button">
-            {dish ? "Actualizar Plato" : "Guardar Plato"}
+            {dish ? 'Actualizar Plato' : 'Guardar Plato'}
           </button>
-
           <button
             type="button"
             onClick={onCancel}

@@ -10,11 +10,15 @@ import MenuSection from "../components/admin/sections/MenuSection";
 import ReportsSection from "../components/admin/sections/ReportsSection";
 import DishesSection from "../components/admin/sections/DishesSection";
 import TablesSection from "../components/admin/sections/TablesSection";
+import { MenuProvider } from "../context/MenuContext";
 
 const Admin = () => {
   const [activeSection, setActiveSection] = useState("orders");
 
   return (
+    <MenuProvider>
+
+    
     <div className="page-container">
       <h1>Panel de Administración</h1>
 
@@ -77,6 +81,7 @@ const Admin = () => {
       {activeSection === "dishes" && <DishesSection />}
       {activeSection === "tables" && <TablesSection />}
     </div>
+    </MenuProvider>
   );
 };
 

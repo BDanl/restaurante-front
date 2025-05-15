@@ -12,8 +12,7 @@ const MenuSection = () => {
     "Bebida",
     "Acompañamiento"
   ];
-
-  // Agrupar platos por categoría
+  
   const dishesByCategory = {};
   categories.forEach(category => {
     dishesByCategory[category] = dishes.filter(dish => dish.category === category);
@@ -21,13 +20,13 @@ const MenuSection = () => {
 
   return (
     <div className="card">
-      <div className="card-header">
+      <div className="card-header" style={{maxWidth:"90%",justifyContent: "center", margin:"0 auto"}}>
         <h2 className="card-title">Menú del Restaurante</h2>
         <p style={{ color: "#666" }}>
           {dishes.filter(dish => dish.available).length} disponibles / {dishes.length} platos
         </p>
       </div>
-      <div className="card-body" style={{ maxHeight: "600px", overflowY: "auto" }}>
+      <div className="card-body" style={{ maxHeight: "600px", overflowY: "auto", maxWidth: "90%", justifyContent: "center", margin: "0 auto" }}>
         {categories.map((category) => (
           <div key={category} style={{ marginBottom: "2rem" }}>
             <h3 style={{ 

@@ -1,5 +1,5 @@
 .navbar {
-  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  background: linear-gradient(135deg, #000, #333);
   color: white;
   padding: 1.5rem 2rem;
   display: flex;

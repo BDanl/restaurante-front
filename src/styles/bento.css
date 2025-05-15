@@ -1,0 +1,231 @@
+/* Estilos base para el diseño bento */
+.menu-container {
+  background-image: url('https://plus.unsplash.com/premium_photo-1680995369588-502d70f0e3c8?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+.bento-container {
+  max-width: 75vw; /* Usa el 95% del ancho de la ventana */
+  margin: 0 auto;
+  padding: 2rem;
+  min-height: 95vh; /* 95% de la altura */
+  font-family: 'Inter', sans-serif;
+  color: #333;
+  background-color: #FFF9F0;
+}
+
+.bento-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #FFD6A5;
+}
+
+.bento-header h1 {
+  font-size: 2rem;
+  color: #FF7B54;
+  margin: 0;
+}
+
+/* Grid principal estilo bento */
+.bento-grid {
+  display: grid;
+  grid-template-columns: 250px 1fr 300px;
+  gap: 1.5rem;
+  min-height: 70vh;
+}
+
+/* Estilos para la sección de categorías */
+.bento-categories {
+  background-color: #FFE4C9;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(255, 154, 118, 0.1);
+}
+
+.bento-categories h2 {
+  font-size: 1.25rem;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: #FF7B54;
+}
+
+.category-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.category-btn {
+  padding: 0.75rem 1rem;
+  border: none;
+  background-color: white;
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: left;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(255, 123, 84, 0.1);
+}
+
+.category-btn:hover {
+  background-color: #FFD6A5;
+  transform: translateY(-2px);
+}
+
+.category-btn.active {
+  background-color: #FF7B54;
+  color: white;
+  box-shadow: 0 4px 10px rgba(255, 123, 84, 0.3);
+}
+
+/* Estilos para la sección de productos */
+.bento-products {
+  background-color: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(255, 154, 118, 0.1);
+}
+
+.bento-products h2 {
+  font-size: 1.25rem;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: #FF7B54;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5rem;
+  overflow-y: auto;
+  max-height: 60vh;
+}
+
+.product-card {
+  background-color: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(255, 154, 118, 0.1);
+  transition: all 0.3s ease;
+  border: 2px solid #FFE4C9;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(255, 154, 118, 0.15);
+}
+
+.product-image {
+  height: 150px;
+  background-color: #FFF9F0;
+  position: relative;
+  border-radius: 16px 16px 0 0;
+}
+
+.image-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #FFE4C9 0%, #FFD6A5 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FF7B54;
+  font-weight: 600;
+}
+
+.product-info {
+  padding: 1rem;
+}
+
+.product-info h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+  color: #FF7B54;
+}
+
+.product-description {
+  font-size: 0.85rem;
+  color: #666;
+  margin: 0 0 1rem 0;
+  line-height: 1.4;
+}
+
+.product-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.product-price {
+  font-weight: 700;
+  color: #FF7B54;
+  font-size: 1.1rem;
+}
+
+/* Estilos para la sección de subcategorías */
+.bento-subcategories {
+  background-color: #FFE4C9;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(255, 154, 118, 0.1);
+}
+
+.subcategory-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.subcategory-btn {
+  padding: 0.75rem 1rem;
+  border: none;
+  background-color: white;
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: left;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(255, 123, 84, 0.1);
+}
+
+.subcategory-btn:hover {
+  background-color: #FFD6A5;
+}
+
+.subcategory-btn.active {
+  background-color: #FF9A76;
+  color: white;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .bento-grid {
+    grid-template-columns: 200px 1fr;
+  }
+  
+  .bento-order {
+    grid-column: span 2;
+    margin-top: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .bento-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .bento-order {
+    grid-column: span 1;
+  }
+  
+  .product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+}

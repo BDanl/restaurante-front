@@ -238,10 +238,21 @@ const Client = () => {
             {selectedSubcategory?.items?.map(item => (
               <div key={item.id} className="product-card">
                 <div className="product-image">
-                  {item.url && (
-            <img src={item.url} alt={item.name} style={{ width: '100%', height: '200px', objectFit: 'cover' }}/>
-          )}
-                </div>
+  {item.url ? (
+    <img 
+      src={item.url} 
+      alt={item.name}
+      onError={(e) => {
+        e.target.onerror = null; 
+        e.target.src = 'https://via.placeholder.com/300x150?text=Imagen+no+disponible';
+      }}
+    />
+  ) : (
+    <div className="image-placeholder">
+      {item.name.split(' ')[0]} {/* Muestra la primera palabra del nombre */}
+    </div>
+  )}
+</div>
                 <div className="product-info">
                   <h3>{item.name}</h3>
                   <p className="product-description">{item.description}</p>

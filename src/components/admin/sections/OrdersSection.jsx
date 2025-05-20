@@ -130,7 +130,7 @@ const OrdersSection = () => {
                       border: "1px solid rgba(0,0,0,0.1)",
                     }}
                   >
-                    <option value="pendiente">Pendiente</option>
+                    <option value="sin hacer">Sin Hacer</option>
                     <option value="preparando">Preparando</option>
                     <option value="listo">Listo</option>
                   </select>

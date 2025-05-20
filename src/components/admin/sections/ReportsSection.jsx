@@ -8,6 +8,7 @@ const ReportsSection = () => {
       status: "urgente",
       needed: "5 kg",
       time: "Hoy 9:00 AM",
+      solved: false
     },
     {
       id: 2,
@@ -15,8 +16,15 @@ const ReportsSection = () => {
       status: "bajo",
       needed: "2 kg",
       time: "Ayer",
+      solved: false
     },
   ]);
+
+  const markAsSolved = (id) => {
+    setReports(reports.map(report => 
+      report.id === id ? { ...report, solved: true } : report
+    ));
+  };
 
   return (
     <div className="card">
@@ -32,7 +40,7 @@ const ReportsSection = () => {
               fontSize: "0.9rem",
             }}
           >
-            Urgentes: {reports.filter((r) => r.status === "urgente").length}
+            Urgentes: {reports.filter((r) => r.status === "urgente" && !r.solved).length}
           </span>
           <span
             style={{
@@ -43,7 +51,18 @@ const ReportsSection = () => {
               fontSize: "0.9rem",
             }}
           >
-            Bajos: {reports.filter((r) => r.status === "bajo").length}
+            Bajos: {reports.filter((r) => r.status === "bajo" && !r.solved).length}
+          </span>
+          <span
+            style={{
+              backgroundColor: "rgba(0, 184, 148, 0.1)",
+              color: "var(--success)",
+              padding: "0.25rem 0.5rem",
+              borderRadius: "4px",
+              fontSize: "0.9rem",
+            }}
+          >
+            Solucionados: {reports.filter((r) => r.solved).length}
           </span>
         </div>
       </div>
@@ -55,7 +74,11 @@ const ReportsSection = () => {
               className="card-item"
               style={{
                 borderLeft: `4px solid ${
-                  report.status === "urgente" ? "var(--danger)" : "var(--warning)"
+                  report.solved 
+                    ? "var(--success)" 
+                    : report.status === "urgente" 
+                      ? "var(--danger)" 
+                      : "var(--warning)"
                 }`,
               }}
             >
@@ -64,20 +87,30 @@ const ReportsSection = () => {
                 <div style={{ display: "flex", gap: "1rem" }}>
                   <span
                     style={{
-                      color: report.status === "urgente" ? "var(--danger)" : "var(--warning)",
+                      color: report.solved 
+                        ? "var(--success)" 
+                        : report.status === "urgente" 
+                          ? "var(--danger)" 
+                          : "var(--warning)",
                       fontWeight: "500",
                     }}
                   >
-                    {report.status.toUpperCase()}
+                    {report.solved ? "SOLUCIONADO" : report.status.toUpperCase()}
                   </span>
                   <span style={{ color: "#666" }}>Necesario: {report.needed}</span>
                 </div>
               </div>
               <div style={{ display: "flex", alignItems: "center" }}>
                 <span style={{ color: "#888", marginRight: "1rem" }}>{report.time}</span>
-                <button className="action-button" style={{ minWidth: "120px" }}>
-                  Solucionado
-                </button>
+                {!report.solved && (
+                  <button 
+                    className="action-button" 
+                    style={{ minWidth: "120px" }}
+                    onClick={() => markAsSolved(report.id)}
+                  >
+                    Solucionado
+                  </button>
+                )}
               </div>
             </div>
           ))}

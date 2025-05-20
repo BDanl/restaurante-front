@@ -9,6 +9,26 @@ export const AuthProvider = ({ children }) => {
   const [users, setUsers] = useState([]); 
   const navigate = useNavigate();
 
+  useEffect(() => {
+  const savedUsers = localStorage.getItem('restaurantUsers');
+  if (savedUsers) {
+    const parsedUsers = JSON.parse(savedUsers);
+    // Migración: asegurar que todos los usuarios tengan lastLogin
+    const migratedUsers = parsedUsers.map(user => ({
+      ...user,
+      lastLogin: user.lastLogin || null
+    }));
+    setUsers(migratedUsers);
+    localStorage.setItem('restaurantUsers', JSON.stringify(migratedUsers));
+  }
+  
+  const savedUser = localStorage.getItem('restaurantCurrentUser');
+  if (savedUser) {
+    setUser(JSON.parse(savedUser));
+    setIsAuthenticated(true);
+  }
+}, []);
+
   // Cargar usuarios guardados al iniciar
   useEffect(() => {
     const savedUsers = localStorage.getItem('restaurantUsers');
@@ -24,20 +44,42 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = (identifier, password) => {
-    const foundUser = users.find(u => 
-      (u.email === identifier || u.username === identifier) && 
-      u.password === password
+  const foundUser = users.find(u => 
+    (u.email === identifier || u.username === identifier) && 
+    u.password === password
+  );
+  
+  if (foundUser) {
+    // Actualizar la fecha de último acceso
+    const updatedUser = {
+      ...foundUser,
+      lastLogin: new Date().toLocaleString('es-ES', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      })
+    };
+    
+    // Actualizar la lista de usuarios
+    const updatedUsers = users.map(u => 
+      u.id === foundUser.id ? updatedUser : u
     );
     
-    if (foundUser) {
-      setUser(foundUser);
-      setIsAuthenticated(true);
-      localStorage.setItem('restaurantCurrentUser', JSON.stringify(foundUser));
-      navigate('/');
-      return true;
-    }
-    return false;
-  };
+    setUser(updatedUser);
+    setUsers(updatedUsers);
+    setIsAuthenticated(true);
+    
+    // Guardar en localStorage
+    localStorage.setItem('restaurantCurrentUser', JSON.stringify(updatedUser));
+    localStorage.setItem('restaurantUsers', JSON.stringify(updatedUsers));
+    
+    navigate('/');
+    return true;
+  }
+  return false;
+};
 
  const register = (userData) => {
   const userExists = users.some(u => 

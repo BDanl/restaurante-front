@@ -1,3 +1,5 @@
+// UsersSection.jsx
+
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../context/AuthContext";
@@ -10,6 +12,27 @@ const UsersSection = () => {
   const [userToDelete, setUserToDelete] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
+
+  // Función para formatear la fecha de manera más legible
+  const formatLastLogin = (lastLogin) => {
+    if (!lastLogin) return "Nunca";
+    
+    // Si ya es un string formateado (como los nuevos accesos)
+    if (typeof lastLogin === 'string') return lastLogin;
+    
+    // Para compatibilidad con fechas guardadas anteriormente como Date
+    try {
+      return new Date(lastLogin).toLocaleString('es-ES', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    } catch (e) {
+      return "Nunca";
+    }
+  };
 
   const confirmDelete = (userId) => setUserToDelete(userId);
   const cancelDelete = () => setUserToDelete(null);
@@ -40,7 +63,7 @@ const UsersSection = () => {
                   <h3 style={{ marginBottom: "0.25rem" }}>{user.name}</h3>
                   <p style={{ color: "#666", marginBottom: "0.25rem" }}>{user.email}</p>
                   <p style={{ fontSize: "0.9rem" }}>
-                    Último acceso: <span style={{ color: "#888" }}>{user.lastLogin || "Nunca"}</span>
+                    Último acceso: <span style={{ color: "#888" }}>{formatLastLogin(user.lastLogin)}</span>
                   </p>
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
@@ -85,6 +108,7 @@ const UsersSection = () => {
           showPassword={showPassword}
           onClose={closeUserDetails}
           onTogglePassword={() => setShowPassword(!showPassword)}
+          formatLastLogin={formatLastLogin}
         />
       )}
 

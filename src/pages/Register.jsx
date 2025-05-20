@@ -148,7 +148,7 @@ const Register = () => {
               className="form-select"
               disabled={isLoading}
             >
-              <option value="client">Cliente</option>
+              {/* <option value="client">Cliente</option> */}
               <option value="admin">Administrador</option>
               <option value="chef">Cocinero</option>
               <option value="cashier">Cajero</option>

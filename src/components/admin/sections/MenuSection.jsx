@@ -19,7 +19,7 @@ const MenuSection = () => {
   });
 
   return (
-    <div className="card">
+    <div className="card" >
       <div className="card-header" style={{maxWidth:"90%",justifyContent: "center", margin:"0 auto"}}>
         <h2 className="card-title">Menú del Restaurante</h2>
         <p style={{ color: "#666" }}>

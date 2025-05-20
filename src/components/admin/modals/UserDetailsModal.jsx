@@ -1,6 +1,8 @@
+// UserDetailsModal.jsx
+
 import React from "react";
 
-const UserDetailsModal = ({ user, showPassword, onClose, onTogglePassword }) => {
+const UserDetailsModal = ({ user, showPassword, onClose, onTogglePassword, formatLastLogin }) => {
   return (
     <div className="modal-overlay">
       <div className="modal-card">
@@ -58,6 +60,12 @@ const UserDetailsModal = ({ user, showPassword, onClose, onTogglePassword }) => 
             <span className="detail-label">Fecha de Registro:</span>
             <span className="detail-value">
               {user.registrationDate || "No disponible"}
+            </span>
+          </div>
+          <div className="user-detail-row">
+            <span className="detail-label">Último Acceso:</span>
+            <span className="detail-value">
+              {formatLastLogin(user.lastLogin)}
             </span>
           </div>
         </div>

@@ -3,18 +3,21 @@ import AppRouter from './routes/Router';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import { AuthProvider } from './context/AuthContext';
+import { MenuProvider } from './context/MenuContext';
 import './App.css';
 
 function App() {
   return (
     <AuthProvider>
-      <div className="app">
-        <Navbar />
-        <main className="main-content">
-          <AppRouter />
-        </main>
-        <Footer />
-      </div>
+      <MenuProvider>
+        <div className="app">
+          <Navbar />
+          <main className="main-content">
+            <AppRouter />
+          </main>
+          <Footer />
+        </div>
+      </MenuProvider>
     </AuthProvider>
   );
 }

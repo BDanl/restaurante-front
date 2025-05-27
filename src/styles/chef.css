@@ -1,0 +1,248 @@
+.chef-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.orders-section {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.filters-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.search-box {
+  position: relative;
+  flex-grow: 1;
+  max-width: 400px;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 2.5rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.search-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+}
+
+.status-filters {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filter-btn.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.orders-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.order-card {
+  border-radius: 10px;
+  padding: 1.5rem;
+  border-left: 4px solid;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.order-card:hover {
+  transform: translateY(-3px);
+}
+
+.order-card.pendiente {
+  border-left-color: var(--warning);
+}
+
+.order-card.en-preparación {
+  border-left-color: var(--primary);
+}
+
+.order-card.listo {
+  border-left-color: var(--success);
+}
+
+.order-card.cancelado {
+  border-left-color: var(--danger);
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.order-header h3 {
+  margin: 0;
+  color: var(--dark);
+}
+
+.order-time {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.order-customer {
+  margin-bottom: 1rem;
+}
+
+.customer-name {
+  font-weight: 500;
+  color: #333;
+}
+
+.order-notes {
+  display: block;
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 0.25rem;
+  background: #fff9e6;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+.order-items {
+  margin: 1rem 0;
+}
+
+.order-items h4 {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  color: #555;
+}
+
+.order-items ul {
+  padding-left: 1.25rem;
+  margin: 0;
+}
+
+.order-items li {
+  margin-bottom: 0.25rem;
+}
+
+.order-status-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px dashed #ddd;
+}
+
+.status-badge {
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-badge.pendiente {
+  background: rgba(253, 203, 110, 0.2);
+  color: var(--warning);
+}
+
+.status-badge.en-preparación {
+  background: rgba(108, 92, 231, 0.2);
+  color: var(--primary);
+}
+
+.status-badge.listo {
+  background: rgba(0, 184, 148, 0.2);
+  color: var(--success);
+}
+
+.status-badge.cancelado {
+  background: rgba(214, 48, 49, 0.2);
+  color: var(--danger);
+}
+
+.status-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.status-select {
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  min-width: 150px;
+}
+
+.action-button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.action-button.ready-btn {
+  background: var(--success);
+  color: white;
+}
+
+.action-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.no-orders {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem;
+  color: #888;
+}
+
+@media (max-width: 768px) {
+  .status-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .status-select {
+    width: 100%;
+  }
+  
+  .action-button {
+    width: 100%;
+  }
+  
+  .orders-grid {
+    grid-template-columns: 1fr;
+  }
+}

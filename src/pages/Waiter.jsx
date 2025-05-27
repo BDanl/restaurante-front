@@ -8,19 +8,19 @@ const Waiter = () => {
   const { users } = useAuth();
   const [activeSection, setActiveSection] = useState("customers");
 
-  // Estado para clientes
+
   const [customers, setCustomers] = useState([
     { id: 1, name: "Juan Pérez", phone: "555-1234", table: null },
     { id: 2, name: "María García", phone: "555-5678", table: 2 },
   ]);
 
-  // Estado para nuevo cliente
+
   const [newCustomer, setNewCustomer] = useState({
     name: "",
     phone: "",
   });
 
-  // Estado para mesas
+
   const [tables, setTables] = useState([
     { id: 1, number: "Mesa 1", status: "disponible" },
     { id: 2, number: "Mesa 2", status: "ocupada" },
@@ -28,7 +28,7 @@ const Waiter = () => {
     { id: 4, number: "Mesa 4", status: "disponible" },
   ]);
 
-  // Estado para pedidos
+
   const [orders, setOrders] = useState([
     {
       id: 1,
@@ -46,7 +46,7 @@ const Waiter = () => {
     },
   ]);
 
-  // Estado para nuevo pedido
+
   const [newOrder, setNewOrder] = useState({
     customer: "",
     table: "",
@@ -56,10 +56,10 @@ const Waiter = () => {
     status: "pendiente",
   });
 
-  // Filtrar meseros
+
   const waiters = users.filter((user) => user.role === "waiter");
 
-  // Métodos de pago
+
   const paymentMethods = [
     "Efectivo",
     "Tarjeta de Crédito",
@@ -67,7 +67,7 @@ const Waiter = () => {
     "Transferencia Bancaria",
   ];
 
-  // Agregar nuevo cliente y asignar a mesa
+
   const addCustomerToTable = (tableId) => {
     if (!newCustomer.name.trim()) {
       alert("Por favor ingrese el nombre del cliente");
@@ -90,7 +90,7 @@ const Waiter = () => {
     setNewCustomer({ name: "", phone: "" });
   };
 
-  // Liberar mesa
+
   const freeTable = (tableId) => {
     setCustomers(customers.filter((customer) => customer.table !== tableId));
     setTables(
@@ -100,7 +100,7 @@ const Waiter = () => {
     );
   };
 
-  // Funciones para gestión de pedidos
+
   const addDishToOrder = (dish) => {
     const existingItem = newOrder.items.find((item) => item.id === dish.id);
 
@@ -173,27 +173,27 @@ const Waiter = () => {
     alert("Pedido registrado exitosamente");
   };
 
-  // Estado para edición de pedido
+
   const [editingOrder, setEditingOrder] = useState(null);
 
-  // Función para eliminar pedido
+
   const deleteOrder = (orderId) => {
     if (window.confirm("¿Está seguro que desea eliminar este pedido?")) {
       setOrders(orders.filter((order) => order.id !== orderId));
     }
   };
 
-  // Función para iniciar edición
+
   const startEditing = (order) => {
     setEditingOrder({ ...order });
   };
 
-  // Función para cancelar edición
+
   const cancelEditing = () => {
     setEditingOrder(null);
   };
 
-  // Función para guardar cambios
+
   const saveEditedOrder = () => {
     if (
       !editingOrder.customer ||
@@ -216,7 +216,7 @@ const Waiter = () => {
     alert("Pedido actualizado correctamente");
   };
 
-  // Función para actualizar items en pedido editado
+
   const updateEditedDishQuantity = (dishId, quantity) => {
     if (quantity <= 0) {
       setEditingOrder({
@@ -233,7 +233,7 @@ const Waiter = () => {
     }
   };
 
-  // Renderizar sección de gestión de clientes
+
   const renderCustomerManagement = () => (
     <div className="section-container">
       <h2>Gestión de Clientes</h2>
@@ -289,7 +289,7 @@ const Waiter = () => {
     </div>
   );
 
-  // Renderizar sección de gestión de pedidos
+
   const renderOrderManagement = () => (
     <div className="section-container">
       <h2>Registrar Nuevo Pedido</h2>
@@ -457,7 +457,7 @@ const Waiter = () => {
     </div>
   );
 
-  // Función para renderizar el select de meseros (reutilizable)
+
   const renderWaitersSelect = (value, onChange) => (
     <select value={value} onChange={onChange} className="form-select" required>
       <option value="">Seleccione un mesero</option>
@@ -469,7 +469,7 @@ const Waiter = () => {
     </select>
   );
 
-  // Renderizar sección de ver pedidos
+
   const renderViewOrders = () => (
     <div className="section-container">
       <h2>Estado de Pedidos</h2>

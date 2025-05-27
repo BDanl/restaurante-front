@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../styles/chef.css';
 
 const Chef = () => {
-  // Estado para los pedidos (simulando conexión con backend)
+
   const [orders, setOrders] = useState([
     {
       id: 1,
@@ -33,19 +33,19 @@ const Chef = () => {
     }
   ]);
 
-  // Estados para filtros
+
   const [statusFilter, setStatusFilter] = useState('todos');
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Función para cambiar estado del pedido
+
   const updateOrderStatus = (orderId, newStatus) => {
     setOrders(orders.map(order => 
       order.id === orderId ? { ...order, status: newStatus } : order
     ));
-    // Aquí iría la conexión con el backend para actualizar en tiempo real
+
   };
 
-  // Filtrar pedidos según selección
+
   const filteredOrders = orders.filter(order => {
     const matchesStatus = statusFilter === 'todos' || order.status === statusFilter;
     const matchesSearch = order.customer.toLowerCase().includes(searchTerm.toLowerCase()) || 
@@ -53,10 +53,10 @@ const Chef = () => {
     return matchesStatus && matchesSearch;
   });
 
-  // Simular actualización en tiempo real (en una app real usarías websockets)
+
   useEffect(() => {
     const interval = setInterval(() => {
-      // Aquí iría la lógica para recibir actualizaciones del backend
+
     }, 5000);
     return () => clearInterval(interval);
   }, []);

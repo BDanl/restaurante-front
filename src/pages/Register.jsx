@@ -77,6 +77,7 @@ const Register = () => {
               placeholder="Tu nombre completo"
               required
               disabled={isLoading}
+              data-testid="name-input"
             />
           </div>
 
@@ -91,6 +92,7 @@ const Register = () => {
               placeholder="nombredeusuario"
               required
               disabled={isLoading}
+              data-testid="username-input"
             />
           </div>
 
@@ -105,6 +107,7 @@ const Register = () => {
               placeholder="tu@email.com"
               required
               disabled={isLoading}
+              data-testid="email-input"
             />
           </div>
 
@@ -120,6 +123,7 @@ const Register = () => {
                 placeholder="••••••••"
                 required
                 disabled={isLoading}
+                data-testid="password-input"
               />
             </div>
 
@@ -134,6 +138,7 @@ const Register = () => {
                 placeholder="••••••••"
                 required
                 disabled={isLoading}
+                data-testid="confirm-password-input"
               />
             </div>
           </div>
@@ -147,6 +152,7 @@ const Register = () => {
               onChange={handleChange}
               className="form-select"
               disabled={isLoading}
+              data-testid="role-select"
             >
               {/* <option value="client">Cliente</option> */}
               <option value="admin">Administrador</option>

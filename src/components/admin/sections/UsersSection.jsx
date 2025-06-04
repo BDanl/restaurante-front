@@ -1,5 +1,3 @@
-// UsersSection.jsx
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../context/AuthContext";
@@ -13,14 +11,11 @@ const UsersSection = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
 
-  // Función para formatear la fecha de manera más legible
   const formatLastLogin = (lastLogin) => {
     if (!lastLogin) return "Nunca";
-    
-    // Si ya es un string formateado (como los nuevos accesos)
+
     if (typeof lastLogin === 'string') return lastLogin;
-    
-    // Para compatibilidad con fechas guardadas anteriormente como Date
+
     try {
       return new Date(lastLogin).toLocaleString('es-ES', {
         day: '2-digit',
@@ -101,7 +96,6 @@ const UsersSection = () => {
         </div>
       </div>
 
-      {/* Modal de Detalles de Usuario */}
       {selectedUser && (
         <UserDetailsModal
           user={selectedUser}
@@ -112,7 +106,6 @@ const UsersSection = () => {
         />
       )}
 
-      {/* Tarjeta para agregar nuevo usuario */}
       <div
         className="card"
         style={{
@@ -136,7 +129,6 @@ const UsersSection = () => {
         </div>
       </div>
 
-      {/* Modal de confirmación para eliminar usuario */}
       {userToDelete && (
         <DeleteConfirmationModal
           onCancel={cancelDelete}

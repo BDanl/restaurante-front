@@ -23,7 +23,6 @@ const Login = () => {
       
       if (!success) {
         setError('Credenciales incorrectas. Por favor verifica tus datos.');
-        // Mostrar usuarios existentes para depuración
         const users = JSON.parse(localStorage.getItem('restaurantUsers') || '[]');
         console.log('Usuarios registrados:', users);
       }

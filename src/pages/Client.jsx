@@ -208,7 +208,7 @@ const Client = () => {
 
   return (
 
-    <div className="menu-container"> {/* Nuevo div contenedor */}
+    <div className="menu-container">
     <div className="bento-container">
       <div className="bento-header">
         <h1>Menú del Restaurante</h1>
@@ -231,7 +231,6 @@ const Client = () => {
           </div>
         </div>
 
-        {/* Productos */}
         <div className="bento-products">
           <h2>{selectedSubcategory?.name || 'Productos'}</h2>
           <div className="product-grid">
@@ -249,7 +248,7 @@ const Client = () => {
     />
   ) : (
     <div className="image-placeholder">
-      {item.name.split(' ')[0]} {/* Muestra la primera palabra del nombre */}
+      {item.name.split(' ')[0]}
     </div>
   )}
 </div>
@@ -265,7 +264,6 @@ const Client = () => {
           </div>
         </div>
 
-        {/* Subcategorías */}
         <div className="bento-subcategories">
           <h2>Subcategorías</h2>
           <div className="subcategory-list">

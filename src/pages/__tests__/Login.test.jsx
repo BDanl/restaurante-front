@@ -4,7 +4,6 @@ import '@testing-library/jest-dom';
 import { BrowserRouter } from 'react-router-dom';
 import Login from '../Login';
 
-// Mock de useNavigate
 const mockNavigate = jest.fn();
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
@@ -12,7 +11,6 @@ jest.mock('react-router-dom', () => ({
   useLocation: () => ({ pathname: '/' })
 }));
 
-// Mock de useAuth
 const mockLogin = jest.fn();
 jest.mock('../../context/AuthContext', () => ({
   useAuth: () => ({

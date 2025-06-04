@@ -1,5 +1,4 @@
 /* dishes.css */
-/* Estilos para el formulario de platos */
 .dish-form {
   display: grid;
   gap: 1.5rem;
@@ -40,7 +39,6 @@
   outline: none;
 }
 
-/* Estilos para la lista de ingredientes */
 .ingredients-list {
   display: flex;
   flex-wrap: wrap;
@@ -58,7 +56,6 @@
   align-items: center;
 }
 
-/* Estilos para el estado de disponibilidad */
 .availability-badge {
   display: inline-block;
   padding: 0.25rem 0.75rem;

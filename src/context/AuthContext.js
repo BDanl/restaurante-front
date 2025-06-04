@@ -13,7 +13,6 @@ export const AuthProvider = ({ children }) => {
   const savedUsers = localStorage.getItem('restaurantUsers');
   if (savedUsers) {
     const parsedUsers = JSON.parse(savedUsers);
-    // Migración: asegurar que todos los usuarios tengan lastLogin
     const migratedUsers = parsedUsers.map(user => ({
       ...user,
       lastLogin: user.lastLogin || null
@@ -29,7 +28,6 @@ export const AuthProvider = ({ children }) => {
   }
 }, []);
 
-  // Cargar usuarios guardados al iniciar
   useEffect(() => {
     const savedUsers = localStorage.getItem('restaurantUsers');
     if (savedUsers) {
@@ -50,7 +48,6 @@ export const AuthProvider = ({ children }) => {
   );
   
   if (foundUser) {
-    // Actualizar la fecha de último acceso
     const updatedUser = {
       ...foundUser,
       lastLogin: new Date().toLocaleString('es-ES', {
@@ -62,7 +59,6 @@ export const AuthProvider = ({ children }) => {
       })
     };
     
-    // Actualizar la lista de usuarios
     const updatedUsers = users.map(u => 
       u.id === foundUser.id ? updatedUser : u
     );
@@ -71,7 +67,6 @@ export const AuthProvider = ({ children }) => {
     setUsers(updatedUsers);
     setIsAuthenticated(true);
     
-    // Guardar en localStorage
     localStorage.setItem('restaurantCurrentUser', JSON.stringify(updatedUser));
     localStorage.setItem('restaurantUsers', JSON.stringify(updatedUsers));
     
@@ -117,7 +112,6 @@ export const AuthProvider = ({ children }) => {
     navigate('/login');
   };
 
-   // Función para actualizar el rol de un usuario
   const updateUserRole = (userId, newRole) => {
     const updatedUsers = users.map(user => 
       user.id === userId ? { ...user, role: newRole } : user
@@ -126,7 +120,6 @@ export const AuthProvider = ({ children }) => {
     setUsers(updatedUsers);
     localStorage.setItem('restaurantUsers', JSON.stringify(updatedUsers));
     
-    // Si es el usuario actual, actualizamos también su estado
     if (user?.id === userId) {
       const updatedUser = { ...user, role: newRole };
       setUser(updatedUser);
@@ -134,13 +127,11 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Función para eliminar un usuario
   const deleteUser = (userId) => {
     const updatedUsers = users.filter(user => user.id !== userId);
     setUsers(updatedUsers);
     localStorage.setItem('restaurantUsers', JSON.stringify(updatedUsers));
     
-    // Si es el usuario actual, cerramos sesión
     if (user?.id === userId) {
       logout();
     }

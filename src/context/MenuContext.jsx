@@ -1,9 +1,7 @@
 import { createContext, useContext, useState } from "react";
 
-// 1. Crear el contexto
 const MenuContext = createContext();
 
-// 2. Crear el proveedor
 export const MenuProvider = ({ children }) => {
   const [dishes, setDishes] = useState([
     {
@@ -27,22 +25,18 @@ export const MenuProvider = ({ children }) => {
     
   ]);
 
-  // Función para agregar un nuevo plato
   const addDish = (newDish) => {
     setDishes([...dishes, { ...newDish, id: Date.now() }]);
   };
 
-  // Función para actualizar un plato existente
   const updateDish = (id, updatedDish) => {
     setDishes(dishes.map(dish => dish.id === id ? updatedDish : dish));
   };
 
-  // Función para eliminar un plato
   const removeDish = (id) => {
     setDishes(dishes.filter(dish => dish.id !== id));
   };
 
-  // Función para cambiar disponibilidad
   const toggleDishAvailability = (id) => {
     setDishes(dishes.map(dish => 
       dish.id === id ? { ...dish, available: !dish.available } : dish
@@ -64,7 +58,6 @@ export const MenuProvider = ({ children }) => {
   );
 };
 
-// 3. Crear hook personalizado para usar el contexto
 export const useMenu = () => {
   const context = useContext(MenuContext);
   if (!context) {

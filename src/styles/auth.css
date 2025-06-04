@@ -150,7 +150,6 @@
     }
   }
 
-  /* Spinner de carga */
 .spinner {
   display: inline-block;
   width: 1rem;
@@ -166,7 +165,6 @@
   to { transform: rotate(360deg); }
 }
 
-/* Estilos para elementos deshabilitados */
 .auth-button:disabled,
 input:disabled,
 select:disabled {
@@ -174,7 +172,6 @@ select:disabled {
   cursor: not-allowed;
 }
 
-/* Efecto de carga en la tarjeta */
 .auth-card.loading {
   position: relative;
 }
@@ -190,12 +187,10 @@ select:disabled {
   z-index: 10;
 }
 
-/* Estilo para el campo de usuario/correo */
 #identifier {
   text-transform: lowercase;
 }
 
-/* Mensaje de ayuda */
 .help-text {
   font-size: 0.8rem;
   color: #666;

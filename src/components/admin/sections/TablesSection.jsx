@@ -46,7 +46,6 @@ const TablesSection = () => {
         </button>
       </div>
       
-      {/* Formulario de Mesas */}
       {showTableForm && (
         <TableFormModal
           table={editingTable}
@@ -55,7 +54,6 @@ const TablesSection = () => {
         />
       )}
       
-      {/* Listado de Mesas */}
       <div className="card-body">
         {tables.length === 0 ? (
           <p style={{ textAlign: 'center', padding: '2rem', color: '#888' }}>

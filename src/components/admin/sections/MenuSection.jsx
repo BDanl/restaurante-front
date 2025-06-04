@@ -4,7 +4,6 @@ import { useMenu } from "../../../context/MenuContext";
 const MenuSection = () => {
   const { dishes, toggleDishAvailability } = useMenu();
   
-  // Categorías disponibles
   const categories = [
     "Plato principal",
     "Entrada",

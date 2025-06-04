@@ -17,7 +17,6 @@ const AppRouter = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       
-      {/* Rutas privadas por rol */}
       <Route path="/admin" element={<PrivateRoute role="admin"><Admin /></PrivateRoute>} />
       <Route path="/chef" element={<PrivateRoute role="chef"><Chef /></PrivateRoute>} />
       <Route path="/cashier" element={<PrivateRoute role="cashier"><Cashier /></PrivateRoute>} />

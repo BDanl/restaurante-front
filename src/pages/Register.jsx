@@ -6,7 +6,7 @@ import "../styles/auth.css";
 const Register = () => {
   const [formData, setFormData] = useState({
     name: "",
-    username: "", // Nuevo campo
+    username: "", 
     email: "",
     password: "",
     confirmPassword: "",
@@ -39,9 +39,9 @@ const Register = () => {
     try {
       const newUser = {
         name: formData.name,
-        username: formData.username.toLowerCase(), // Asegurar minúsculas
-        email: formData.email.toLowerCase(), // Asegurar minúsculas
-        password: formData.password, // En producción esto debería ser un hash
+        username: formData.username.toLowerCase(), 
+        email: formData.email.toLowerCase(), 
+        password: formData.password, 
         role: formData.role
       };
       
@@ -154,7 +154,6 @@ const Register = () => {
               disabled={isLoading}
               data-testid="role-select"
             >
-              {/* <option value="client">Cliente</option> */}
               <option value="admin">Administrador</option>
               <option value="chef">Cocinero</option>
               <option value="cashier">Cajero</option>

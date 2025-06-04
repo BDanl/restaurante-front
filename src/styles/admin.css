@@ -1,5 +1,4 @@
 /* admin.css */
-/* Estilos para la tarjeta de agregar usuario */
 .add-user-card {
   transition: all 0.3s ease;
   cursor: pointer;
@@ -17,7 +16,6 @@
   color: var(--primary);
 }
 
-/* Modal de confirmación */
 .confirmation-modal {
   position: fixed;
   top: 0;

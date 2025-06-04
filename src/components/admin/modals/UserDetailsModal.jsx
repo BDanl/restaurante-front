@@ -1,5 +1,3 @@
-// UserDetailsModal.jsx
-
 import React from "react";
 
 const UserDetailsModal = ({ user, showPassword, onClose, onTogglePassword, formatLastLogin }) => {

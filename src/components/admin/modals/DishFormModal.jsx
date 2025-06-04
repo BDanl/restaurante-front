@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 const DishFormModal = ({ dish, onSave, onCancel }) => {
-  // Estado del formulario - cambiamos de newDish a formData para mayor claridad
+
   const [formData, setFormData] = useState({
     name: "",
     ingredients: "",
@@ -11,7 +11,6 @@ const DishFormModal = ({ dish, onSave, onCancel }) => {
     available: true,
   });
 
-  // Efecto para cargar datos cuando se edita un plato
   useEffect(() => {
     if (dish) {
       setFormData({
@@ -25,7 +24,6 @@ const DishFormModal = ({ dish, onSave, onCancel }) => {
     }
   }, [dish]);
 
-  // Manejador de cambios en los inputs
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -34,17 +32,14 @@ const DishFormModal = ({ dish, onSave, onCancel }) => {
     });
   };
 
-  // Manejador de envío del formulario
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    // Convertir ingredientes de string a array
+
     const ingredientsArray = formData.ingredients
       .split(",")
       .map(ing => ing.trim())
       .filter(ing => ing !== "");
 
-    // Crear objeto plato para guardar
     const dishToSave = {
       name: formData.name,
       ingredients: ingredientsArray,
@@ -54,7 +49,6 @@ const DishFormModal = ({ dish, onSave, onCancel }) => {
       available: formData.available,
     };
 
-    // Llamar a la función onSave con los datos del plato
     onSave(dishToSave);
   };
 

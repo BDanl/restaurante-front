@@ -664,7 +664,6 @@ const Waiter = () => {
     });
   };
 
-  // Función para eliminar platillo del pedido en edición
   const removeDishFromEditedOrder = (dishId) => {
     setEditingOrder({
       ...editingOrder,

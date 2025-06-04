@@ -4,7 +4,6 @@ import '@testing-library/jest-dom';
 import { BrowserRouter } from 'react-router-dom';
 import Register from '../Register';
 
-// Mock de useNavigate
 const mockNavigate = jest.fn();
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
@@ -12,7 +11,6 @@ jest.mock('react-router-dom', () => ({
   useLocation: () => ({ pathname: '/' })
 }));
 
-// Mock de useAuth
 const mockRegister = jest.fn();
 jest.mock('../../context/AuthContext', () => ({
   useAuth: () => ({
@@ -59,7 +57,6 @@ describe('Register Component', () => {
 
     renderRegister();
 
-    // Fill the form
     fireEvent.change(screen.getByTestId('name-input'), { target: { value: formData.name } });
     fireEvent.change(screen.getByTestId('username-input'), { target: { value: formData.username } });
     fireEvent.change(screen.getByTestId('email-input'), { target: { value: formData.email } });
@@ -67,10 +64,8 @@ describe('Register Component', () => {
     fireEvent.change(screen.getByTestId('confirm-password-input'), { target: { value: formData.confirmPassword } });
     fireEvent.change(screen.getByTestId('role-select'), { target: { value: formData.role } });
 
-    // Submit the form
     fireEvent.click(screen.getByRole('button', { name: /registrarse/i }));
 
-    // Wait for registration to complete
     await waitFor(() => {
       expect(mockRegister).toHaveBeenCalledWith({
         name: formData.name,
@@ -87,7 +82,6 @@ describe('Register Component', () => {
     mockRegister.mockResolvedValue(false);
     renderRegister();
 
-    // Fill form with mismatched passwords
     fireEvent.change(screen.getByTestId('name-input'), { target: { value: 'John Doe' } });
     fireEvent.change(screen.getByTestId('username-input'), { target: { value: 'johndoe' } });
     fireEvent.change(screen.getByTestId('email-input'), { target: { value: 'john@example.com' } });
@@ -95,10 +89,8 @@ describe('Register Component', () => {
     fireEvent.change(screen.getByTestId('confirm-password-input'), { target: { value: 'different123' } });
     fireEvent.change(screen.getByTestId('role-select'), { target: { value: 'waiter' } });
 
-    // Submit the form
     fireEvent.click(screen.getByRole('button', { name: /registrarse/i }));
 
-    // Check error message
     expect(screen.getByText(/las contraseñas no coinciden/i)).toBeInTheDocument();
   });
 
@@ -106,7 +98,6 @@ describe('Register Component', () => {
     mockRegister.mockRejectedValue(new Error('Registration failed'));
     renderRegister();
 
-    // Fill the form
     fireEvent.change(screen.getByTestId('name-input'), { target: { value: 'John Doe' } });
     fireEvent.change(screen.getByTestId('username-input'), { target: { value: 'johndoe' } });
     fireEvent.change(screen.getByTestId('email-input'), { target: { value: 'john@example.com' } });
@@ -114,10 +105,8 @@ describe('Register Component', () => {
     fireEvent.change(screen.getByTestId('confirm-password-input'), { target: { value: 'password123' } });
     fireEvent.change(screen.getByTestId('role-select'), { target: { value: 'waiter' } });
 
-    // Submit the form
     fireEvent.click(screen.getByRole('button', { name: /registrarse/i }));
 
-    // Wait for error to be displayed
     await waitFor(() => {
       expect(screen.getByText('Registration failed')).toBeInTheDocument();
     });
@@ -127,7 +116,6 @@ describe('Register Component', () => {
     mockRegister.mockResolvedValue(true);
     renderRegister();
 
-    // Fill the form
     fireEvent.change(screen.getByTestId('name-input'), { target: { value: 'John Doe' } });
     fireEvent.change(screen.getByTestId('username-input'), { target: { value: 'johndoe' } });
     fireEvent.change(screen.getByTestId('email-input'), { target: { value: 'john@example.com' } });
@@ -135,10 +123,8 @@ describe('Register Component', () => {
     fireEvent.change(screen.getByTestId('confirm-password-input'), { target: { value: 'password123' } });
     fireEvent.change(screen.getByTestId('role-select'), { target: { value: 'waiter' } });
 
-    // Submit the form
     fireEvent.click(screen.getByRole('button', { name: /registrarse/i }));
 
-    // Wait for inputs to be disabled
     await waitFor(() => {
       expect(screen.getByTestId('name-input')).toBeDisabled();
       expect(screen.getByTestId('username-input')).toBeDisabled();
